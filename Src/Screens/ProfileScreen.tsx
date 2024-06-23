@@ -1,13 +1,29 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import {StyleSheet, Text, View, Button} from 'react-native';
 
-const ProfileScreen = () => {
+function ProfileScreen() {
   return (
-    <View>
-      <Text>ProfileScreen</Text>
+    <View style={styles.viewStyle}>
+      <Text style={styles.headingStyle}>ProfileScreen</Text>
+      <Text style={styles.textStyle}>This is it</Text> 
+     
     </View>
-  )
+  );
 }
-
-export default ProfileScreen
-
+const styles = StyleSheet.create({
+  viewStyle: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flex: 1,
+  },
+  textStyle: {
+    fontSize: 28,
+    color: 'black',
+  },
+  headingStyle: {
+    fontSize: 30,
+    color: 'black',
+    textAlign: 'center',
+  },
+});
+export default ProfileScreen;

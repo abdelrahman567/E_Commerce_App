@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flexGrow: 1,
     backgroundColor: '#000000', 
     alignItems: 'center',
     justifyContent: 'center',
@@ -27,7 +27,7 @@ export const styles = StyleSheet.create({
   },
   button: {
     width: '100%',
-    backgroundColor: '#fb5b5a',
+    //backgroundColor: '#fb5b5a',
     borderRadius: 25,
     height: 50,
     alignItems: 'center',
@@ -69,18 +69,19 @@ export const styles = StyleSheet.create({
     width: '80%',
     backgroundColor: '#333333',
     borderRadius: 25,
-    height: 50,
+    height: 55,
     marginBottom: 20,
     justifyContent: 'center',
-    padding: 20,
+    padding: 15,
   },
   inputText: {
     height: 50,
     color: 'white',
+
   },
   signUpBtn: {
     width: '80%',
-    backgroundColor: '#fb5b5a',
+    //backgroundColor: '#fb5b5a',
     borderRadius: 25,
     height: 50,
     alignItems: 'center',
@@ -92,6 +93,10 @@ export const styles = StyleSheet.create({
     color: 'white',
     fontWeight: 'bold',
   },
+  errorText:{
+color: "red",
+fontSize: 12,
+},
 });
 
 export default styles;

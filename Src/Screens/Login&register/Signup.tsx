@@ -1,5 +1,6 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
+import { styles } from './styles';
 
 const Signup = () => {
   return (
@@ -9,6 +10,4 @@ const Signup = () => {
   )
 }
 
-
-const styles = StyleSheet.create({})
 export default Signup

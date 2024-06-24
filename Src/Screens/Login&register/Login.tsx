@@ -1,10 +1,8 @@
 import {  Text, TextInput, TouchableOpacity, View } from 'react-native'
 import React, { useState } from 'react'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import { NavigationProp, useNavigation } from '@react-navigation/native';
+import { NavigationProp } from '@react-navigation/native';
 import { styles } from './styles';
-import { StyleSheet } from "react-native"
-import Icon from 'react-native-vector-icons/FontAwesome';
+
 
 type LoginProps = {
   navigation: NavigationProp<any>;

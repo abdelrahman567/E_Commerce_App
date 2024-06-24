@@ -1,10 +1,12 @@
 import { StyleSheet, Text, View } from 'react-native'
+import 'react-native-gesture-handler';
 import React from 'react'
 import HomeScreen from './Src/Screens/HomeScreen'
 import ProfileScreen from './Src/Screens/ProfileScreen'
 import { NavigationContainer } from '@react-navigation/native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import UserScreen from './Src/Screens/UserScreen'
+
 
 const Tab = createBottomTabNavigator();
 

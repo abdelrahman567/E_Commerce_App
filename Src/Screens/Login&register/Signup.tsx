@@ -13,7 +13,7 @@ const SignUpScreen = ({navigation}: {navigation: NavigationProp<any>}) => {
       <View style={styles.inputView}>
         <TextInput
           style={styles.inputText}
-          placeholder="Name"
+          placeholder="Username"
           placeholderTextColor="#ffffff"
           onChangeText={text => (text)}
         />
@@ -26,14 +26,7 @@ const SignUpScreen = ({navigation}: {navigation: NavigationProp<any>}) => {
           onChangeText={text => (text)}
         />
       </View>
-      <View style={styles.inputView}>
-        <TextInput
-          style={styles.inputText}
-          placeholder="Username"
-          placeholderTextColor="#ffffff"
-          onChangeText={text => (text)}
-        />
-      </View>
+      
      
 
       <View style={styles.inputView}>

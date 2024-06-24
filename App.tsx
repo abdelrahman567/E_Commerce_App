@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StatusBar, StyleSheet, Text, View } from 'react-native'
 import 'react-native-gesture-handler';
 import React from 'react'
 import HomeScreen from './Src/Screens/HomeScreen'
@@ -20,6 +20,7 @@ const Stack = createStackNavigator();
 const App = () => {
   return (
     <NavigationContainer>
+      <StatusBar backgroundColor="#000000" barStyle="light-content" />
     <Stack.Navigator 
     screenOptions={{
     headerStyle: { backgroundColor: 'black',   shadowColor: 'transparent'},

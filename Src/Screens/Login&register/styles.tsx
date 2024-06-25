@@ -97,6 +97,33 @@ export const styles = StyleSheet.create({
 color: "red",
 fontSize: 12,
 },
+loadingcontainer:{
+alignContent: 'center',
+justifyContent: 'center',
+
+},
+image:{
+  width: 130,
+  height: 130,
+},
+wrapper:{
+alignItems: 'center',
+justifyContent: 'center',
+flexDirection: 'row',
+marginVertical: 30,
+borderWidth: 1,
+borderColor: '#fb5b5a',
+padding: 10,
+},
+imagewraper:{
+flex: 1,  
+},
+textwraper:{
+flex: 2,
+},
+text:{
+marginVertical: 5, 
+},
 });
 
 export default styles;

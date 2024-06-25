@@ -10,35 +10,58 @@ import Login from './Src/Screens/Login&register/Login';
 import { createStackNavigator } from '@react-navigation/stack';
 import Signup from './Src/Screens/Login&register/Signup';
 import ForgetPassword from './Src/Screens/Login&register/ForgetPassword';
-import { shadow } from 'react-native-paper';
-
+import Products from './Src/Screens/HomeScreen';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
 
-const App = () => {
+
+function AuthStack() {
   return (
-    <NavigationContainer>
-      <StatusBar backgroundColor="#000000" barStyle="light-content" />
-    <Stack.Navigator 
-    screenOptions={{
-    headerStyle: { backgroundColor: 'black',   shadowColor: 'transparent'},
-    headerTintColor: '#fff',
-    headerTitle:"",
-      
-}}>
+
+    <><StatusBar backgroundColor="#000000" barStyle="light-content" /><Stack.Navigator
+      screenOptions={{
+        headerStyle: { backgroundColor: 'black', shadowColor: 'transparent' },
+        headerTintColor: '#fff',
+        headerTitle: "",
+      }}>
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name='Signup' component={Signup} />
       <Stack.Screen name="ForgetPassword" component={ForgetPassword} />
-      <Stack.Screen name="Home" component={HomeScreen} />
-      <Stack.Screen name="Profile" component={ProfileScreen} />
-      <Stack.Screen name="User" component={UserScreen} />
-    </Stack.Navigator>
-  </NavigationContainer>
-  
-  
-  )
+
+
+    </Stack.Navigator></>
+
+  );
+}
+function MainTab() {
+  return (
+    <><StatusBar backgroundColor="black" barStyle="light-content" /><Tab.Navigator screenOptions={{
+      headerStyle: { backgroundColor: 'black', shadowColor: 'black' },
+      headerTintColor: 'white',
+      tabBarActiveTintColor: '#fb5b5a',
+      
+    }}>
+
+      <Tab.Screen name="Products" component={Products} />
+      <Tab.Screen name="Profile" component={ProfileScreen} />
+      <Tab.Screen name="User" component={UserScreen} />
+    </Tab.Navigator></>
+  );
+}
+const App = () => {
+  const [isAuthenticated, setIsAuthenticated] = React.useState(false);
+
+  return (
+    <NavigationContainer>
+      {isAuthenticated ? (
+        <AuthStack />
+      ) : (
+        <MainTab />
+      )}
+    </NavigationContainer>
+  );
 }
 
 export default App

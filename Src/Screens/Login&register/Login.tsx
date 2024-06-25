@@ -67,7 +67,10 @@ const Login = ({ navigation }: LoginProps) => {
 
       <TouchableOpacity   disabled={!isValid}
       style={[styles.button,
-        {backgroundColor:isValid?'#fb5b5a':'grey',}]} >
+        {backgroundColor:isValid?'#fb5b5a':'grey',}]
+        } 
+        
+        >
         <Text style={styles.buttonText}>Login</Text>
       </TouchableOpacity>
 

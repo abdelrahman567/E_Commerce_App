@@ -1,7 +1,6 @@
 import { StatusBar, StyleSheet, Text, View } from 'react-native'
 import 'react-native-gesture-handler';
 import React from 'react'
-import HomeScreen from './Src/Screens/HomeScreen'
 import ProfileScreen from './Src/Screens/ProfileScreen'
 import { NavigationContainer } from '@react-navigation/native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -37,7 +36,10 @@ function AuthStack() {
 }
 function MainTab() {
   return (
-    <><StatusBar backgroundColor="black" barStyle="light-content" /><Tab.Navigator screenOptions={{
+    <><StatusBar backgroundColor="black" barStyle="light-content" />
+    <Tab.Navigator
+    
+    screenOptions={{tabBarStyle: { backgroundColor: 'black', shadowColor: 'black' },
       headerStyle: { backgroundColor: 'black', shadowColor: 'black' },
       headerTintColor: 'white',
       tabBarActiveTintColor: '#fb5b5a',

@@ -103,27 +103,79 @@ justifyContent: 'center',
 
 },
 image:{
-  width: 130,
-  height: 130,
+  width: 150,
+  height: 150,
 },
 wrapper:{
-alignItems: 'center',
-justifyContent: 'center',
-flexDirection: 'row',
-marginVertical: 30,
-borderWidth: 1,
-borderColor: '#fb5b5a',
-padding: 10,
+  backgroundColor: 'white',
+  borderRadius: 50,
+  marginBottom: 20,
+  padding: 10,
+  flexDirection: 'row', // Added to align items horizontally
+  
+},
+wrapper2:{
+  backgroundColor: 'white',
+  borderRadius: 50,
+  marginBottom: 20,
+  padding: 10,
+  //flexDirection: 'row', // Added to align items horizontally
+
+
+  
 },
 imagewraper:{
-flex: 1,  
+  alignItems: 'center',
+  marginBottom: 10,
+  marginRight: 10, 
+
 },
-textwraper:{
-flex: 2,
+textWrapper: {
+  alignItems: 'center',
+  flex: 1, 
+  justifyContent: 'center', 
 },
 text:{
 marginVertical: 5, 
 },
+title2: {
+  color: 'black',
+  fontSize: 18,
+  fontWeight: 'bold',
+  marginBottom: 5,
+  textAlign: 'center',
+  alignContent: 'center',
+},
+description: {
+  color: 'black',
+  fontSize: 14,
+  textAlign: 'center',
+  marginBottom: 5,
+},
+
+price: {
+  color: '#fb5b5a',
+  fontSize: 16,
+  fontWeight: 'bold',
+},
+container2: {
+  flex: 1,
+  backgroundColor: 'black',
+  padding: 10,
+},
+loadingContainer: {
+  flex: 1,
+  justifyContent: 'center',
+  alignItems: 'center',
+},
+
+
+//////
+
 });
+
+
+
+
 
 export default styles;

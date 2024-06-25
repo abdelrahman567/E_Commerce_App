@@ -14,7 +14,7 @@ function Products() {
     }).catch(err=>console.log(err)).finally(()=>setLoading(false));
 }, []);
 
-const renderItem = ({item})=>{
+const renderItem = ({item}: {item: any})=>{
   return(
     <View style={styles.wrapper}>
     <View style={styles.imagewraper}>

@@ -65,11 +65,13 @@ const Login = ({ navigation }: LoginProps) => {
         </Text>
       </TouchableOpacity>
 
-      <TouchableOpacity   disabled={!isValid}
-      style={[styles.button,
+      <TouchableOpacity  
+      
+      disabled={!isValid}
+            style={[styles.button,
         {backgroundColor:isValid?'#fb5b5a':'grey',}]
         } 
-        
+        onPress={() => {  navigation.navigate('ForgetPassword')}}
         >
         <Text style={styles.buttonText}>Login</Text>
       </TouchableOpacity>

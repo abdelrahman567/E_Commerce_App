@@ -58,9 +58,9 @@ const App = () => {
   return (
     <NavigationContainer>
       {isAuthenticated ? (
-        <AuthStack />
-      ) : (
         <MainTab />
+      ) : (
+        <AuthStack />
       )}
     </NavigationContainer>
   );

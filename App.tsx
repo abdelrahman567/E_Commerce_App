@@ -4,12 +4,13 @@ import React from 'react'
 import ProfileScreen from './Src/Screens/ProfileScreen'
 import { NavigationContainer } from '@react-navigation/native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import UserScreen from './Src/Screens/UserScreen'
+import UserScreen from './Src/Screens/Cart'
 import Login from './Src/Screens/Login&register/Login';
 import { createStackNavigator } from '@react-navigation/stack';
 import Signup from './Src/Screens/Login&register/Signup';
 import ForgetPassword from './Src/Screens/Login&register/ForgetPassword';
 import Products from './Src/Screens/HomeScreen';
+import Cart from './Src/Screens/Cart';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -36,7 +37,8 @@ function AuthStack() {
 }
 function MainTab() {
   return (
-    <><StatusBar backgroundColor="black" barStyle="light-content" />
+    <>
+    <StatusBar backgroundColor="black" barStyle="light-content" />
     <Tab.Navigator
     
     screenOptions={{tabBarStyle: { backgroundColor: 'black', shadowColor: 'black' },
@@ -47,9 +49,10 @@ function MainTab() {
     }}>
 
       <Tab.Screen name="Products" component={Products} />
+      <Tab.Screen name="Cart" component={Cart} />
       <Tab.Screen name="Profile" component={ProfileScreen} />
-      <Tab.Screen name="User" component={UserScreen} />
-    </Tab.Navigator></>
+    </Tab.Navigator>
+    </>
   );
 }
 const App = () => {
@@ -58,9 +61,9 @@ const App = () => {
   return (
     <NavigationContainer>
       {isAuthenticated ? (
-        <MainTab />
-      ) : (
         <AuthStack />
+      ) : (
+        <MainTab />
       )}
     </NavigationContainer>
   );

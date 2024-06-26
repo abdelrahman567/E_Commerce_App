@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, ActivityIndicator, FlatList, Image, SafeAreaView, TouchableOpacity, TextInput, ScrollView } from 'react-native';
+import { Text, View, ActivityIndicator, FlatList, Image, SafeAreaView, TouchableOpacity, TextInput, ScrollView, Modal } from 'react-native';
 import axios from 'axios';
 import styles from './Login&register/styles';
 
@@ -10,6 +10,10 @@ interface Product {
   price: number;
   image: string;
   category: string;
+  rating: {
+    rate: number;
+    count: number;
+  };
 }
 
 interface CartItem extends Product {
@@ -24,6 +28,7 @@ const Products: React.FC = () => {
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string>('');
   const [cart, setCart] = useState<CartItem[]>([]);
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
   useEffect(() => {
     setLoading(true);
@@ -89,6 +94,10 @@ const Products: React.FC = () => {
     return cart.reduce((total, item) => total + (item.price * item.quantity), 0).toFixed(2);
   };
 
+  const handleMoreDetails = (product: Product) => {
+    setSelectedProduct(product);
+  };
+
   const renderItem = ({ item }: { item: Product }) => (
     <View style={styles.wrapper}>
       <View style={styles.wrapper2}>
@@ -97,11 +106,15 @@ const Products: React.FC = () => {
           <Image source={{ uri: item.image }} style={styles.image} resizeMode='contain' />
         </View>
         <View style={styles.textWrapper}>
-          <Text style={styles.description}>Description: {item.description}</Text>
           <Text style={styles.price}>Price: ${item.price}</Text>
-          <TouchableOpacity style={[styles.signUpBtn, { backgroundColor: '#fb5b5a' }]} onPress={() => handleAddToCart(item)}>
-            <Text style={[styles.signUpText, { backgroundColor: '#fb5b5a' }]}>Add to Cart</Text>
-          </TouchableOpacity>
+          <View style={{ flexDirection: 'row' }}>
+            <TouchableOpacity style={[styles.signUpBtn2, { backgroundColor: '#007bff', marginRight: 10 }]} onPress={() => handleMoreDetails(item)}>
+              <Text style={[styles.signUpText2, { backgroundColor: '#007bff' }]}>More Details</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={[styles.signUpBtn2, { backgroundColor: '#fb5b5a' }]} onPress={() => handleAddToCart(item)}>
+              <Text style={[styles.signUpText2, { backgroundColor: '#fb5b5a' }]}>Add to Cart</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
     </View>
@@ -165,6 +178,31 @@ const Products: React.FC = () => {
               </TouchableOpacity>
             </View>
           </View>
+
+          {selectedProduct && (
+            <Modal
+              visible={true}
+              transparent={true}
+              animationType="slide"
+            >
+              <View style={styles.modalContainer}>
+                <View style={styles.detailsContainer}>
+                  <Text style={styles.title2}>{selectedProduct.title}</Text>
+                  <Image source={{ uri: selectedProduct.image }} style={styles.image} resizeMode='contain' />
+                  <Text style={styles.description}>Description: {selectedProduct.description}</Text>
+                  <Text style={styles.price}>Price: ${selectedProduct.price}</Text>
+                  <Text style={styles.rating}>Rating: {selectedProduct.rating.rate}</Text>
+                  <Text style={styles.count}>Count: {selectedProduct.rating.count}</Text>
+                  <TouchableOpacity
+                    style={[styles.signUpBtn, { backgroundColor: '#007bff', marginTop: 10 }]}
+                    onPress={() => setSelectedProduct(null)}
+                  >
+                    <Text style={[styles.signUpText, { backgroundColor: '#007bff' }]}>Close</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </Modal>
+          )}
         </>
       )}
     </SafeAreaView>

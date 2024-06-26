@@ -1,6 +1,6 @@
 import {StyleSheet, Text, View, Button} from 'react-native';
 
-function UserScreen() {
+function Cart() {
   return (
     <View style={styles.viewStyle}>
       <Text style={styles.headingStyle}>UserScreen</Text>
@@ -26,4 +26,4 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
-export default UserScreen;
+export default Cart;

@@ -300,7 +300,90 @@ cartActions: {
   justifyContent: 'flex-end',
 },
 //////
+modalContainer: {
+  flex: 1,
+  justifyContent: 'center',
+  alignItems: 'center',
+  backgroundColor: 'rgba(0, 0, 0, 0.5)',
+},
+detailsContainer: {
+  width: '90%',
+  backgroundColor: '#fff',
+  borderRadius: 10,
+  padding: 20,
+  alignItems: 'center',
+},
+rating: {
+  fontSize: 14,
+  color: '#666',
+  marginTop: 10,
+},
 
+signUpBtn2: {
+  width: '45%',
+  //backgroundColor: '#fb5b5a',
+  borderRadius: 25,
+  height: 50,
+  alignItems: 'center',
+  justifyContent: 'center',
+  marginTop: 40,
+  marginBottom: 10,
+},
+signUpText2: {
+  color: 'white',
+  fontWeight: 'bold',
+},
+count: {
+  fontSize: 14,
+  color: '#666',
+  marginTop: 5,
+},
+
+
+//cart
+cartItem: {
+  flexDirection: 'row',
+  padding: 10,
+  margin: 10,
+  backgroundColor: '#fff',
+  borderRadius: 5,
+  shadowColor: '#000',
+  shadowOffset: { width: 0, height: 2 },
+  shadowOpacity: 0.2,
+  shadowRadius: 2,
+  elevation: 2,
+},
+cartItemImage: {
+  width: 100,
+  height: 100,
+},
+cartItemInfo: {
+  flex: 1,
+  paddingLeft: 10,
+},
+cartItemTitle: {
+  fontSize: 16,
+  fontWeight: 'bold',
+},
+cartItemPrice: {
+  fontSize: 14,
+  color: '#666',
+},
+cartItemTotal: {
+  fontSize: 14,
+  fontWeight: 'bold',
+  marginTop: 5,
+},
+cartSummary: {
+  padding: 10,
+  borderTopWidth: 1,
+  borderTopColor: '#ddd',
+},
+cartTotalText: {
+  fontSize: 18,
+  fontWeight: 'bold',
+  textAlign: 'center',
+},
 });
 
 

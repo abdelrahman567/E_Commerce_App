@@ -35,7 +35,7 @@ function AuthStack({ setIsAuthenticated }: { setIsAuthenticated: (value: boolean
   );
 }
 
-function MainTab() {
+function MainTab({ setIsAuthenticated }: { setIsAuthenticated: (value: boolean) => void }) {
   return (
     <>
       <StatusBar backgroundColor="black" barStyle="light-content" />
@@ -50,7 +50,9 @@ function MainTab() {
       >
         <Tab.Screen name="Products" component={Products} />
         <Tab.Screen name="Cart" component={Cart} />
-        <Tab.Screen name="Profile" component={ProfileScreen} />
+        <Tab.Screen name="Profile">
+          {(props) => <ProfileScreen {...props} setIsAuthenticated={setIsAuthenticated} />}
+        </Tab.Screen>
       </Tab.Navigator>
     </>
   );
@@ -62,7 +64,7 @@ const App = () => {
   return (
     <NavigationContainer>
       {isAuthenticated ? (
-        <MainTab />
+        <MainTab setIsAuthenticated={setIsAuthenticated} />
       ) : (
         <AuthStack setIsAuthenticated={setIsAuthenticated} />
       )}

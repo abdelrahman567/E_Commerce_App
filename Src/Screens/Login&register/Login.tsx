@@ -33,9 +33,9 @@ const Login = ({ navigation }: LoginProps) => {
       if (jsonData !== null) {
         const formData = JSON.parse(jsonData);
         // Validate email and password
-        console.log('====================================');
-        console.log(formData.email, formData.password);
-        console.log('====================================');
+        // console.log('====================================');
+        // console.log(formData.email, formData.password);
+        // console.log('====================================');
         if (formData.email === initialValues.email && formData.password === initialValues.Password) {
           Alert.alert('Success', 'Login successful!');
           navigation.navigate('HomeScreen');

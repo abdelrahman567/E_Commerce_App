@@ -20,7 +20,7 @@ interface Props {
 }
 
 const Cart: React.FC<Props> = ({ route }) => {
-  const { cart: initialCart } = route.params;
+  const { cart: initialCart = [] } = route.params || {}; // Default to empty array if params are not provided
   const [cart, setCart] = useState<CartItem[]>(initialCart);
 
   const handleClearCart = () => {
@@ -42,10 +42,6 @@ const Cart: React.FC<Props> = ({ route }) => {
   const getTotalPrice = () => {
     return cart.reduce((total, item) => total + (item.price * item.quantity), 0).toFixed(2);
   };
-
-  function alert(arg0: string): void {
-    throw new Error('Function not implemented.');
-  }
 
   return (
     <ScrollView contentContainerStyle={styles.scrollViewContent}>

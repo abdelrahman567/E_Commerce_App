@@ -76,6 +76,7 @@ const Products: React.FC = () => {
             : item
         );
       } else {
+        // Otherwise, add the product to cart with quantity 1
         return [...prevCart, { ...product, quantity: 1 }];
       }
     });
@@ -86,7 +87,8 @@ const Products: React.FC = () => {
   };
 
   const handleCheckout = () => {
-    navigation.navigate('Cart', { cart }); // Navigate to Cart screen with cart data
+    navigation.navigate('Cart' , { cart } ); // Navigate to Cart screen with cart data
+    setCart([]); // Clear cart after navigating to Cart screen
   };
 
   const getTotalItems = () => {
@@ -181,10 +183,12 @@ const Products: React.FC = () => {
               </TouchableOpacity>
               <TouchableOpacity 
                 style={[styles.checkoutBtn, { backgroundColor: cart.length > 0 ? '#5af55a' : '#ddd' }]} 
+                disabled={cart.length === 0}
                 onPress={() => {
                   handleCheckout(); // Navigate to Cart screen
                   setCart([]); // Clear cart after navigating to Cart screen
                 }}
+                
               >
                 <Text style={styles.checkoutText}>Save to Cart</Text>
               </TouchableOpacity>

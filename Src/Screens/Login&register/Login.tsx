@@ -33,6 +33,7 @@ const Login = ({ navigation, setIsAuthenticated }: LoginProps) => {
         const formData = JSON.parse(jsonData);
         if (formData.email === initialValues.email && formData.password === initialValues.Password) {
           Alert.alert('Success', 'Login successful!');
+          await AsyncStorage.setItem('isAuthenticated', 'true');
           setIsAuthenticated(true); // Update authentication state
         } else {
           Alert.alert('Error', 'Invalid email or password.');

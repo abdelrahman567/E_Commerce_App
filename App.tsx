@@ -1,6 +1,6 @@
 import { StatusBar, StyleSheet, Text, View } from 'react-native';
 import 'react-native-gesture-handler';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ProfileScreen from './Src/Screens/ProfileScreen';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -10,6 +10,7 @@ import Signup from './Src/Screens/Login&register/Signup';
 import ForgetPassword from './Src/Screens/Login&register/ForgetPassword';
 import Products from './Src/Screens/HomeScreen';
 import Cart from './Src/Screens/Cart';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -60,16 +61,60 @@ function MainTab({ setIsAuthenticated }: { setIsAuthenticated: (value: boolean) 
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const checkAuthStatus = async () => {
+      try {
+        const authStatus = await AsyncStorage.getItem('isAuthenticated');
+        if (authStatus === 'true') {
+          setIsAuthenticated(true);
+        }
+      } catch (error) {
+        console.error('Failed to fetch auth status:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    checkAuthStatus();
+  }, []);
+
+  const handleSetIsAuthenticated = async (value: boolean) => {
+    try {
+      await AsyncStorage.setItem('isAuthenticated', value.toString());
+      setIsAuthenticated(value);
+    } catch (error) {
+      console.error('Failed to set auth status:', error);
+    }
+  };
+
+  if (isLoading) {
+    return (
+      <View style={styles.loadingContainer}>
+        <Text>Loading...</Text>
+      </View>
+    );
+  }
 
   return (
     <NavigationContainer>
       {isAuthenticated ? (
-        <MainTab setIsAuthenticated={setIsAuthenticated} />
+        <MainTab setIsAuthenticated={handleSetIsAuthenticated} />
       ) : (
-        <AuthStack setIsAuthenticated={setIsAuthenticated} />
+        <AuthStack setIsAuthenticated={handleSetIsAuthenticated} />
       )}
     </NavigationContainer>
   );
-}
+};
+
+const styles = StyleSheet.create({
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#000',
+  },
+});
 
 export default App;

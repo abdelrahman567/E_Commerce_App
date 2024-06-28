@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, Button, StyleSheet, Alert } from 'react-native';
+import { View, Text, Button, Alert, TouchableOpacity } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import styles from './Login&register/styles';
 
 type ProfileScreenProps = {
   setIsAuthenticated: (value: boolean) => void;
@@ -34,25 +35,16 @@ const ProfileScreen = ({ setIsAuthenticated }: ProfileScreenProps) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Profile Screen</Text>
-      <Text style={styles.text}>Name: {userName}</Text>
-      <Button title="Logout" onPress={handleLogout} />
+      <Text style={styles.logo}>Profile</Text>
+      <Text style={[styles.input,{backgroundColor:'black'}]}>Name: {userName}</Text>
+      <TouchableOpacity
+        style={[styles.button, { backgroundColor: '#fb5b5a' }]}
+        onPress={handleLogout}
+      >
+        <Text style={styles.buttonText}>Logout</Text>
+      </TouchableOpacity>
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'black',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  text: {
-    color: 'white',
-    fontSize: 18,
-    marginBottom: 10,
-  },
-});
 
 export default ProfileScreen;

@@ -8,6 +8,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 type LoginProps = {
   navigation: NavigationProp<any>;
+  setIsAuthenticated: (value: boolean) => void;
 };
 
 const LoginSchema = Yup.object().shape({
@@ -18,30 +19,23 @@ const LoginSchema = Yup.object().shape({
     .required('Enter your password.'),
 });
 
-const Login = ({ navigation }: LoginProps) => {
+const Login = ({ navigation, setIsAuthenticated }: LoginProps) => {
   const [secureTextEntry, setSecureTextEntry] = useState(true);
 
   const toggleSecureEntry = () => {
     setSecureTextEntry(!secureTextEntry);
   };
 
-  
-
-  const handleLogin = async (initialValues:any) => {
+  const handleLogin = async (initialValues: any) => {
     try {
       const jsonData = await AsyncStorage.getItem('signup_data');
       if (jsonData !== null) {
         const formData = JSON.parse(jsonData);
-        // Validate email and password
-        // console.log('====================================');
-        // console.log(formData.email, formData.password);
-        // console.log('====================================');
         if (formData.email === initialValues.email && formData.password === initialValues.Password) {
           Alert.alert('Success', 'Login successful!');
-          navigation.navigate('HomeScreen');
+          setIsAuthenticated(true); // Update authentication state
         } else {
           Alert.alert('Error', 'Invalid email or password.');
-        
         }
       } else {
         Alert.alert('Error', 'No signup data found.');
@@ -50,9 +44,7 @@ const Login = ({ navigation }: LoginProps) => {
       console.error('Error retrieving form data:', error);
       Alert.alert('Error', 'Failed to retrieve form data.');
     }
-  }; 
-
-
+  };
 
   return (
     <Formik

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Text, View, ActivityIndicator, FlatList, Image, SafeAreaView, TouchableOpacity, TextInput, ScrollView, Modal } from 'react-native';
 import axios from 'axios';
+import { useNavigation } from '@react-navigation/native';
 import styles from './Login&register/styles';
 
 interface Product {
@@ -21,6 +22,8 @@ interface CartItem extends Product {
 }
 
 const Products: React.FC = () => {
+  const navigation = useNavigation();
+
   const [products, setProducts] = useState<Product[]>([]);
   const [categories, setCategories] = useState<string[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
@@ -83,7 +86,7 @@ const Products: React.FC = () => {
   };
 
   const handleCheckout = () => {
-    // No navigation for now
+    navigation.navigate('Cart', { cart }); // Navigate to Cart screen with cart data
   };
 
   const getTotalItems = () => {
@@ -119,6 +122,13 @@ const Products: React.FC = () => {
       </View>
     </View>
   );
+
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      setCart([]); // Clear cart when navigating back to Products screen
+    });
+    return unsubscribe;
+  }, [navigation]);
 
   return (
     <SafeAreaView style={styles.container2}>
@@ -171,10 +181,12 @@ const Products: React.FC = () => {
               </TouchableOpacity>
               <TouchableOpacity 
                 style={[styles.checkoutBtn, { backgroundColor: cart.length > 0 ? '#5af55a' : '#ddd' }]} 
-                onPress={handleCheckout}
-                disabled={cart.length === 0} // Disable button when cart is empty
+                onPress={() => {
+                  handleCheckout(); // Navigate to Cart screen
+                  setCart([]); // Clear cart after navigating to Cart screen
+                }}
               >
-                <Text style={styles.checkoutText}>Checkout</Text>
+                <Text style={styles.checkoutText}>Save to Cart</Text>
               </TouchableOpacity>
             </View>
           </View>

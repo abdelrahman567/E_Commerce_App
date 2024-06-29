@@ -11,6 +11,7 @@ import ForgetPassword from './Src/Screens/Login&register/ForgetPassword';
 import Products from './Src/Screens/HomeScreen';
 import Cart from './Src/Screens/Cart';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -49,10 +50,23 @@ function MainTab({ setIsAuthenticated }: { setIsAuthenticated: (value: boolean) 
           tabBarActiveTintColor: '#fb5b5a',
         }}
       >
-        <Tab.Screen name="Products" component={Products} />
-        <Tab.Screen name="Cart" component={Cart} />
-        <Tab.Screen name="Profile">
-          {(props) => <ProfileScreen {...props} setIsAuthenticated={setIsAuthenticated} />}
+        <Tab.Screen name="Products" component={Products}
+        options={{  tabBarIcon: ({ focused }) => (
+          <Icon name="home" size={25} color={focused ? "#fb5b5a" : "white"} />)}}
+        />
+
+
+        <Tab.Screen name="Cart" component={Cart} options={{  tabBarIcon: ({ focused }) => (
+          <Icon name="shopping-cart" size={25} color={focused ? "#fb5b5a" : "white"} />)}}/>
+
+
+        <Tab.Screen name="Profile" 
+         options={{  tabBarIcon: ({ focused }) => (
+          <Icon name="account-circle" size={25} color={focused ? "#fb5b5a" : "white"} />)}}
+        >
+          {(props) => <ProfileScreen {...props} setIsAuthenticated={setIsAuthenticated}
+          
+          />}
         </Tab.Screen>
       </Tab.Navigator>
     </>

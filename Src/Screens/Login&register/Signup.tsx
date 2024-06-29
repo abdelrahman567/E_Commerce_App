@@ -34,6 +34,7 @@ const SignUpScreen = ({ navigation }: { navigation: NavigationProp<any> }) => {
       const jsonData = JSON.stringify(formData);
       await AsyncStorage.setItem('signup_data', jsonData);
       Alert.alert('Success', 'Signed up successfully!');
+   
 
     } catch (error) {
       console.error('Error saving form data:', error);

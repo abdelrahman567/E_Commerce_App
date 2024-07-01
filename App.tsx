@@ -24,7 +24,6 @@ function AuthStack({ setIsAuthenticated }: { setIsAuthenticated: (value: boolean
         screenOptions={{
           headerStyle: { backgroundColor: '#003f5c', shadowColor: 'transparent' },
           headerTintColor: '#fff',
-          headerTitle: "",
         }}
       >
         <Stack.Screen name="Login">
@@ -40,29 +39,30 @@ function AuthStack({ setIsAuthenticated }: { setIsAuthenticated: (value: boolean
 function MainTab({ setIsAuthenticated }: { setIsAuthenticated: (value: boolean) => void }) {
   return (
     <>
-      <StatusBar backgroundColor="black" barStyle="light-content" />
+      <StatusBar backgroundColor="#007bff"  barStyle="light-content" />
       <Tab.Navigator
         initialRouteName='Products'
         screenOptions={{
-          tabBarStyle: { backgroundColor: 'black', shadowColor: 'black' },
-          headerStyle: { backgroundColor: 'black', shadowColor: 'black' },
-          headerTintColor: 'white',
-          tabBarActiveTintColor: '#fb5b5a',
+          tabBarStyle: { backgroundColor: 'black', shadowColor: 'white' },
+          headerStyle: { backgroundColor: '#007bff', shadowColor: '#007bff' },
+          headerTintColor: '#007bff',
+          headerTitleStyle: {color:'white', fontWeight: 'bold' },
+          tabBarActiveTintColor: '#007bff',
         }}
       >
         <Tab.Screen name="Products" component={Products}
         options={{  tabBarIcon: ({ focused }) => (
-          <Icon name="home" size={25} color={focused ? "#fb5b5a" : "white"} />)}}
+          <Icon name="home" size={25} color={focused ? "#007bff" : "white"} />)}}
         />
 
 
         <Tab.Screen name="Cart" component={Cart} options={{  tabBarIcon: ({ focused }) => (
-          <Icon name="shopping-cart" size={25} color={focused ? "#fb5b5a" : "white"} />)}}/>
+          <Icon name="shopping-cart" size={25} color={focused ? "#007bff" : "white"} />)}}/>
 
 
         <Tab.Screen name="Profile" 
          options={{  tabBarIcon: ({ focused }) => (
-          <Icon name="account-circle" size={25} color={focused ? "#fb5b5a" : "white"} />)}}
+          <Icon name="account-circle" size={25} color={focused ? "#007bff" : "white"} />)}}
         >
           {(props) => <ProfileScreen {...props} setIsAuthenticated={setIsAuthenticated}
           

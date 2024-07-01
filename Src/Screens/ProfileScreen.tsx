@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, Alert, TouchableOpacity, Image, Platform } from 'react-native';
+import { View, Text, Alert, TouchableOpacity } from 'react-native';
+import { Image, Button } from 'react-native-elements';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { launchImageLibrary, ImagePickerResponse } from 'react-native-image-picker';
-import styles from './Login&register/styles';
+import styles, { stylesprod } from './Login&register/styles'; // Assuming styles are imported from the correct path
 import profilePhoto from '../Screens/Assests/Profile.png';
+import RNDateTimePicker from '@react-native-community/datetimepicker';
 
 type ProfileScreenProps = {
   setIsAuthenticated: (value: boolean) => void;
@@ -12,7 +14,11 @@ type ProfileScreenProps = {
 const ProfileScreen = ({ setIsAuthenticated }: ProfileScreenProps) => {
   const [userName, setUserName] = useState('');
   const [userEmail, setUserEmail] = useState('');
+  const [userRole, setUserRole] = useState('');
+  const [userBirthDate, setUserBirthDate] = useState('');
   const [profilePhotoUri, setProfilePhotoUri] = useState<string | null>(null);
+
+
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -22,6 +28,8 @@ const ProfileScreen = ({ setIsAuthenticated }: ProfileScreenProps) => {
           const formData = JSON.parse(jsonData);
           setUserName(formData.name);
           setUserEmail(formData.email);
+          setUserRole(formData.userRole);
+          setUserBirthDate(formData.birthDate);
           setProfilePhotoUri(formData.profilePhotoUri || null);
         } else {
           Alert.alert('Error', 'No user data found.');
@@ -74,21 +82,27 @@ const ProfileScreen = ({ setIsAuthenticated }: ProfileScreenProps) => {
   return (
     <View style={styles.container}>
       <Text style={styles.logo}>Profile</Text>
-      <TouchableOpacity onPress={handleProfilePhotoUpload}>
-        <Image
-          source={profilePhotoUri ? { uri: profilePhotoUri } : profilePhoto}
-          style={styles.profilePhoto}
-        />
-      </TouchableOpacity>
-      <Text style={[styles.input, { backgroundColor: 'black' }]}>Name: {userName}</Text>
-      <Text style={[styles.input, { backgroundColor: 'black' }]}>Email: {userEmail}</Text>
+      <View style={stylesprod.inputContainer}>
+        <TouchableOpacity onPress={handleProfilePhotoUpload}>
+          <Image
+            source={profilePhotoUri ? { uri: profilePhotoUri } : profilePhoto}
+            style={styles.profilePhoto}
+          />
+        </TouchableOpacity>
+        <Text style={[styles.input, { backgroundColor: 'transparent', marginTop: 20 }]}>Name: {userName}</Text>
+        <Text style={[styles.input, { backgroundColor: 'transparent' }]}>Email: {userEmail}</Text>
+        <Text style={[styles.input, { backgroundColor: 'transparent' }]}>Role: {userRole}</Text>
+        <Text style={[styles.input, { backgroundColor: 'transparent' }]}>Birth Date: {userBirthDate}</Text>
+      </View>
 
-      <TouchableOpacity
-        style={[styles.button, { backgroundColor: '#fb5b5a' }]}
+      
+      <Button
+        title="Logout"
         onPress={handleLogout}
-      >
-        <Text style={styles.buttonText}>Logout</Text>
-      </TouchableOpacity>
+        buttonStyle={[styles.button, { backgroundColor: '#fb5b5a', marginTop: 20 }]}
+        titleStyle={styles.buttonText}
+      />
+      
     </View>
   );
 };

@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import { View, Alert, StyleSheet } from 'react-native';
+import { View, Alert, TouchableOpacity } from 'react-native';
 import { Input, Button, Text, Icon, Card, ThemeProvider } from 'react-native-elements';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NavigationProp } from '@react-navigation/native';
+import { Picker } from '@react-native-picker/picker';
+import DateTimePicker from '@react-native-community/datetimepicker'; // Updated import for DateTimePicker
 import { styles2 } from './styles';
 
 const theme = {
@@ -22,7 +24,6 @@ const SignupSchema = Yup.object().shape({
     .min(3, 'Name Too Short!')
     .max(30, 'Name Too Long!')
     .required('Enter your name.'),
-
   email: Yup.string().email('Invalid email').required('Enter your email.'),
   password: Yup.string()
     .min(8, 'Password Too Short!')
@@ -35,6 +36,9 @@ const SignupSchema = Yup.object().shape({
 
 const SignUpScreen = ({ navigation }: { navigation: NavigationProp<any> }) => {
   const [secureTextEntry, setSecureTextEntry] = useState(true);
+  const [userRole, setUserRole] = useState<string>('buyer');
+  const [birthDate, setBirthDate] = useState<Date | null>(null); // State for birth date
+  const [showDatePicker, setShowDatePicker] = useState(false); // State to show/hide date picker
 
   const toggleSecureEntry = () => {
     setSecureTextEntry(!secureTextEntry);
@@ -42,13 +46,20 @@ const SignUpScreen = ({ navigation }: { navigation: NavigationProp<any> }) => {
 
   const saveFormData = async (formData: any) => {
     try {
-      const jsonData = JSON.stringify(formData);
+      const formattedBirthDate = birthDate ? birthDate.toISOString().split('T')[0] : null; // Format birthDate to YYYY-MM-DD
+      const jsonData = JSON.stringify({ ...formData, userRole, birthDate: formattedBirthDate }); // Include formatted birthDate in form data
       await AsyncStorage.setItem('signup_data', jsonData);
       Alert.alert('Success', 'Signed up successfully!');
     } catch (error) {
       console.error('Error saving form data:', error);
       Alert.alert('Error', 'Failed to save form data.');
     }
+  };
+
+  const handleDateChange = (event: any, selectedDate: Date | undefined) => {
+    const currentDate = selectedDate || birthDate;
+    setShowDatePicker(false);
+    setBirthDate(currentDate);
   };
 
   return (
@@ -132,6 +143,34 @@ const SignUpScreen = ({ navigation }: { navigation: NavigationProp<any> }) => {
                 onBlur={() => setFieldTouched('repeatPassword')}
                 errorMessage={touched.repeatPassword && errors.repeatPassword ? errors.repeatPassword : undefined}
               />
+
+              {/* Date Picker for birth date */}
+              <TouchableOpacity onPress={() => setShowDatePicker(true)}>
+                <Text style={styles2.pickerLabel}>Select Birth Date:</Text>
+                <Text style={{color:'white'}}>{birthDate ? birthDate.toLocaleDateString() : 'Select date'}</Text>
+              </TouchableOpacity>
+              {showDatePicker && (
+                <DateTimePicker
+                  testID="dateTimePicker"
+                  value={birthDate || new Date()}
+                  mode="date"
+                  display="default"
+                  onChange={handleDateChange}
+                />
+              )}
+
+              {/* Picker for user role */}
+              <View style={styles2.pickerContainer}>
+                <Text style={styles2.pickerLabel}>Select Role:</Text>
+                <Picker
+                  selectedValue={userRole}
+                  style={styles2.picker}
+                  onValueChange={(itemValue, itemIndex) => setUserRole(itemValue)}
+                >
+                  <Picker.Item label="Buyer" value="buyer" />
+                  <Picker.Item label="Seller" value="seller" />
+                </Picker>
+              </View>
 
               <Button
                 title="Sign Up"

@@ -4,7 +4,7 @@ import { StyleSheet } from 'react-native';
 export const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
-    backgroundColor: '#000000', 
+    backgroundColor: '#007bff', 
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: 20, 
@@ -27,7 +27,7 @@ export const styles = StyleSheet.create({
   },
   
   button: {
-    width: '100%',
+    width: 'auto',
     backgroundColor: 'grey',
     borderRadius: 25,
     height: 50,
@@ -403,7 +403,6 @@ profilePhoto: {
 
 
 
-
 export const styles2 = StyleSheet.create({
   container2: {
     flex: 1,
@@ -440,7 +439,222 @@ export const styles2 = StyleSheet.create({
     margin: 10,
 
   },
+  pickerContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginTop: 20,
+    marginBottom: 10,
+  },
+  pickerLabel: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: 'white',
+    marginRight: 10,
+  },
+  picker: {
+    flex: 1,
+    height: 40,
+    marginLeft: 10,
+    color: 'white',
+  },
 });
 
+
+
+export const stylesprod = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    paddingHorizontal: 10,
+    paddingTop: 10,
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  searchBar: {
+    height: 40,
+    borderWidth: 1,
+    borderColor: '#ddd',
+    borderRadius: 5,
+    paddingHorizontal: 10,
+    marginBottom: 10,
+  },
+  categoryScroll: {
+    marginTop: 10,
+    marginBottom: 0,
+  },
+  categoryBtn: {
+    // paddingHorizontal: 15,
+    // paddingVertical: 12, // Adjust padding as needed
+    backgroundColor: '#007bff',
+    // borderRadius: 5,
+    flexWrap: 'wrap',
+
+
+
+    paddingVertical: 0,
+  paddingHorizontal: 15, 
+  width: 'auto', 
+  borderRadius: 5,
+  borderWidth: 1,
+  borderColor: '#007bff',
+  marginRight: 10,
+  alignItems: 'center',
+  justifyContent: 'center',
+  height: 40, 
+  paddingBottom: 5,
+  marginBottom: 15,
+  },
+  selectedCategoryBtn: {
+    backgroundColor: '#0056b3', // Darker shade for selected category
+  },
+  categoryText: {
+    color: '#fff',
+    fontWeight: 'bold',
+  },
+  noProductContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 50,
+  },
+  noProductText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  cartContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingVertical: 10,
+    borderTopWidth: 1,
+    borderTopColor: '#ddd',
+    marginTop: 10,
+  },
+  cartInfo: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  cartText: {
+    marginRight: 20,
+    fontSize: 16,
+  },
+  cartActions: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  clearCartBtn: {
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    borderRadius: 5,
+    backgroundColor: '#fb5b5a',
+    marginRight: 5,
+  },
+  checkoutBtn: {
+    paddingVertical: 10,
+    borderRadius: 5,
+    backgroundColor: '#5af55a',
+  },
+  checkoutText: {
+    color: '#fff',
+    fontWeight: 'bold',
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  detailsContainer: {
+    backgroundColor: '#fff',
+    padding: 20,
+    borderRadius: 10,
+    width: '80%',
+    maxHeight: '80%',
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  image: {
+    width: '100%',
+    height: 200,
+    marginBottom: 10,
+  },
+  description: {
+    marginBottom: 10,
+  },
+  price: {
+    fontSize: 16,
+    marginBottom: 5,
+  },
+  rating: {
+    marginBottom: 5,
+  },
+  count: {
+    marginBottom: 10,
+  },
+  card: {
+    marginBottom: 20,
+    borderRadius: 10,
+    elevation: 3, // Android
+    shadowColor: '#000',
+    shadowOpacity: 0.1,
+    shadowRadius: 5,
+    shadowOffset: { width: 0, height: 2 },
+    backgroundColor: '#fff',
+    padding: 15,
+  },
+  cardTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  cardImageContainer: {
+    alignItems: 'center',
+  },
+  cardImage: {
+    width: '100%',
+    height: 200,
+    marginBottom: 10,
+    borderRadius: 5,
+  },
+  cardDetails: {
+    marginTop: 10,
+  },
+  cardDescription: {
+    marginBottom: 10,
+    color: '#555',
+  },
+  cardButtons: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 10,
+  },
+  cardButton: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingVertical: 20,
+    borderRadius: 5,
+    color: 'white',
+  },
+  cardButtonText: {
+    color: 'white',
+    fontWeight: 'bold',
+ },
+  clearCartText: {
+    color: '#fff',
+    fontWeight: 'bold',
+  },
+  inputContainer: {
+    alignItems: 'center',
+  },
+});
 
 export default styles; 

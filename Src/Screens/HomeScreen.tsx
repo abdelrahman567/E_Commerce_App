@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Text, View, ActivityIndicator, FlatList, Image, SafeAreaView, TouchableOpacity, TextInput, ScrollView, Modal } from 'react-native';
 import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
-import styles from './Login&register/styles';
+import { stylesprod } from './Login&register/styles';
+import { color } from 'react-native-elements/dist/helpers';
 
 interface Product {
   id: number;
@@ -87,7 +88,7 @@ const Products: React.FC = () => {
   };
 
   const handleCheckout = () => {
-    navigation.navigate('Cart' , { cart } ); // Navigate to Cart screen with cart data
+    navigation.navigate('Cart', { cart }); // Navigate to Cart screen with cart data
     setCart([]); // Clear cart after navigating to Cart screen
   };
 
@@ -104,22 +105,20 @@ const Products: React.FC = () => {
   };
 
   const renderItem = ({ item }: { item: Product }) => (
-    <View style={styles.wrapper}>
-      <View style={styles.wrapper2}>
-        <View style={styles.imagewraper}>
-          <Text style={styles.title2}>{item.title}</Text>
-          <Image source={{ uri: item.image }} style={styles.image} resizeMode='contain' />
-        </View>
-        <View style={styles.textWrapper}>
-          <Text style={styles.price}>Price: ${item.price}</Text>
-          <View style={{ flexDirection: 'row' }}>
-            <TouchableOpacity style={[styles.signUpBtn2, { backgroundColor: '#007bff', marginRight: 10 }]} onPress={() => handleMoreDetails(item)}>
-              <Text style={[styles.signUpText2, { backgroundColor: '#007bff' }]}>More Details</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={[styles.signUpBtn2, { backgroundColor: '#fb5b5a' }]} onPress={() => handleAddToCart(item)}>
-              <Text style={[styles.signUpText2, { backgroundColor: '#fb5b5a' }]}>Add to Cart</Text>
-            </TouchableOpacity>
-          </View>
+    <View style={stylesprod.card}>
+      <View style={stylesprod.cardImageContainer}>
+        <Image source={{ uri: item.image }} style={stylesprod.cardImage} resizeMode='contain' />
+      </View>
+      <View style={stylesprod.cardDetails}>
+        <Text style={stylesprod.cardTitle}>{item.title}</Text>
+        <Text style={stylesprod.cardDescription}>Price: ${item.price}</Text>
+        <View style={stylesprod.cardButtons}>
+          <TouchableOpacity style={[stylesprod.cardButton, { backgroundColor: '#007bff' }]} onPress={() => handleMoreDetails(item)}>
+            <Text style={stylesprod.cardButtonText}>More Details</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={[stylesprod.cardButton, { backgroundColor: '#fb5b5a' }]} onPress={() => handleAddToCart(item)}>
+            <Text style={stylesprod.cardButtonText}>Add to Cart</Text>
+          </TouchableOpacity>
         </View>
       </View>
     </View>
@@ -133,34 +132,34 @@ const Products: React.FC = () => {
   }, [navigation]);
 
   return (
-    <SafeAreaView style={styles.container2}>
+    <SafeAreaView style={stylesprod.container}>
       {loading ? (
-        <View style={styles.loadingContainer}>
+        <View style={stylesprod.loadingContainer}>
           <ActivityIndicator size='large' color='#fb5b5a' />
         </View>
       ) : (
         <>
           <TextInput 
-            style={styles.searchBar2}
+            style={stylesprod.searchBar}
             placeholder="Search Products..."
             value={searchQuery}
             onChangeText={handleSearch}
           />
-          <ScrollView horizontal style={styles.categoryScroll}>
+          <ScrollView horizontal style={stylesprod.categoryScroll}>
             {categories.map(category => (
               <TouchableOpacity 
                 key={category}
-                style={[styles.categoryBtn, selectedCategory === category && styles.selectedCategoryBtn]}
+                style={[stylesprod.categoryBtn, selectedCategory === category && stylesprod.selectedCategoryBtn]}
                 onPress={() => handleCategorySelect(category)}
               >
-                <Text style={styles.categoryText}>{category}</Text>
+                <Text style={stylesprod.categoryText}>{category}</Text>
               </TouchableOpacity>
             ))}
           </ScrollView>
 
           {filteredProducts.length === 0 && ( // Conditionally render no products found message
-            <View style={styles.noProductContainer}>
-              <Text style={styles.noProductText}>No products found. Consider refining your search.</Text>
+            <View style={stylesprod.noProductContainer}>
+              <Text style={stylesprod.noProductText}>No products found. Consider refining your search.</Text>
             </View>
           )}
 
@@ -172,25 +171,21 @@ const Products: React.FC = () => {
             />
           )}
 
-          <View style={styles.cartContainer}>
-            <View style={styles.cartInfo}>
-              <Text style={styles.cartText}>Cart: {getTotalItems()} items</Text>
-              <Text style={styles.cartText}>Total: ${getTotalPrice()}</Text>
+          <View style={stylesprod.cartContainer}>
+            <View style={stylesprod.cartInfo}>
+              <Text style={stylesprod.cartText}>Cart: {getTotalItems()} items</Text>
+              <Text style={stylesprod.cartText}>Total: ${getTotalPrice()}</Text>
             </View>
-            <View style={styles.cartActions}>
-              <TouchableOpacity style={[styles.clearCartBtn, { backgroundColor: '#fb5b5a' }]} onPress={handleClearCart}>
-                <Text style={styles.clearCartText}>Clear</Text>
+            <View style={stylesprod.cartActions}>
+              <TouchableOpacity style={[stylesprod.clearCartBtn, { backgroundColor: '#fb5b5a' }]} onPress={handleClearCart}>
+                <Text style={stylesprod.clearCartText}>Clear</Text>
               </TouchableOpacity>
               <TouchableOpacity 
-                style={[styles.checkoutBtn, { backgroundColor: cart.length > 0 ? '#5af55a' : '#ddd' }]} 
+                style={[stylesprod.checkoutBtn, { backgroundColor: cart.length > 0 ? '#5af55a' : '#ddd' }]} 
                 disabled={cart.length === 0}
-                onPress={() => {
-                  handleCheckout(); // Navigate to Cart screen
-                  setCart([]); // Clear cart after navigating to Cart screen
-                }}
-                
+                onPress={handleCheckout}
               >
-                <Text style={styles.checkoutText}>Save to Cart</Text>
+                <Text style={stylesprod.checkoutText}>Save to Cart</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -201,19 +196,19 @@ const Products: React.FC = () => {
               transparent={true}
               animationType="slide"
             >
-              <View style={styles.modalContainer}>
-                <View style={styles.detailsContainer}>
-                  <Text style={styles.title2}>{selectedProduct.title}</Text>
-                  <Image source={{ uri: selectedProduct.image }} style={styles.image} resizeMode='contain' />
-                  <Text style={styles.description}>Description: {selectedProduct.description}</Text>
-                  <Text style={styles.price}>Price: ${selectedProduct.price}</Text>
-                  <Text style={styles.rating}>Rating: {selectedProduct.rating.rate}</Text>
-                  <Text style={styles.count}>Count: {selectedProduct.rating.count}</Text>
+              <View style={stylesprod.modalContainer}>
+                <View style={stylesprod.detailsContainer}>
+                  <Text style={stylesprod.title}>{selectedProduct.title}</Text>
+                  <Image source={{ uri: selectedProduct.image }} style={stylesprod.image} resizeMode='contain' />
+                  <Text style={stylesprod.description}>Description: {selectedProduct.description}</Text>
+                  <Text style={stylesprod.price}>Price: ${selectedProduct.price}</Text>
+                  <Text style={stylesprod.rating}>Rating: {selectedProduct.rating.rate}</Text>
+                  <Text style={stylesprod.count}>Count: {selectedProduct.rating.count}</Text>
                   <TouchableOpacity
-                    style={[styles.signUpBtn, { backgroundColor: '#007bff', marginTop: 10 }]}
+                    style={[stylesprod.cardButton, { backgroundColor: '#007bff', marginTop: 10 }]}
                     onPress={() => setSelectedProduct(null)}
                   >
-                    <Text style={[styles.signUpText, { backgroundColor: '#007bff' }]}>Close</Text>
+                    <Text style={stylesprod.cardButtonText}>Close</Text>
                   </TouchableOpacity>
                 </View>
               </View>
@@ -224,5 +219,10 @@ const Products: React.FC = () => {
     </SafeAreaView>
   );
 }
+
+
+
+
+
 
 export default Products;

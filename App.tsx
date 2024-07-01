@@ -19,10 +19,10 @@ const Stack = createStackNavigator();
 function AuthStack({ setIsAuthenticated }: { setIsAuthenticated: (value: boolean) => void }) {
   return (
     <>
-      <StatusBar backgroundColor="#000000" barStyle="light-content" />
+      <StatusBar backgroundColor="#003f5c" barStyle="light-content" />
       <Stack.Navigator
         screenOptions={{
-          headerStyle: { backgroundColor: 'black', shadowColor: 'transparent' },
+          headerStyle: { backgroundColor: '#003f5c', shadowColor: 'transparent' },
           headerTintColor: '#fff',
           headerTitle: "",
         }}

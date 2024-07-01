@@ -395,10 +395,52 @@ profilePhoto: {
   marginBottom: 20,
 },
 
+
+
+////elements
+
 });
 
 
 
 
+export const styles2 = StyleSheet.create({
+  container2: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#003f5c',
+  },
+  logo2: {
+    fontSize: 30,
+    color: '#ffffff',
+    marginBottom: 30,
+  },
+  card2: {
+    width: '90%',
+    padding: 20,
+    backgroundColor: '#465881',
+    borderRadius: 10,
+    borderColor: '#465881',
+  },
+  loginButton2: {
+    backgroundColor: '#fb5b5a',
+  },
+  forgotPassword2: {
+    color: '#ffffff',
+    marginTop: 15,
+    textAlign: 'center',
+  },
+  signupContainer2: {
+    flexDirection: 'row',
+    marginTop: 20,
+  },
+  signupText2: {
+    color: '#ffffff',
+    margin: 10,
 
-export default styles;
+  },
+});
+
+
+export default styles; 

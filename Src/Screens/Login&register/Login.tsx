@@ -1,14 +1,25 @@
 import React, { useState } from 'react';
-import { Text, TextInput, TouchableOpacity, View, Alert } from 'react-native';
+import { View, Alert, StyleSheet } from 'react-native';
 import { NavigationProp } from '@react-navigation/native';
-import styles from './styles';
+import { Input, Button, Text, Icon, Card, ThemeProvider } from 'react-native-elements';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { styles2 } from './styles';
 
 type LoginProps = {
   navigation: NavigationProp<any>;
   setIsAuthenticated: (value: boolean) => void;
+};
+
+const theme = {
+  Button: {
+    raised: true,
+  },
+  colors: {
+    primary: '#fb5b5a',
+    secondary: '#ffffff',
+  },
 };
 
 const LoginSchema = Yup.object().shape({
@@ -34,7 +45,7 @@ const Login = ({ navigation, setIsAuthenticated }: LoginProps) => {
         if (formData.email === initialValues.email && formData.password === initialValues.Password) {
           Alert.alert('Success', 'Login successful!');
           await AsyncStorage.setItem('isAuthenticated', 'true');
-          setIsAuthenticated(true); // Update authentication state
+          setIsAuthenticated(true); // auths state
         } else {
           Alert.alert('Error', 'Invalid email or password.');
         }
@@ -48,66 +59,79 @@ const Login = ({ navigation, setIsAuthenticated }: LoginProps) => {
   };
 
   return (
-    <Formik
-      initialValues={{
-        email: '',
-        Password: '',
-      }}
-      validationSchema={LoginSchema}
-      onSubmit={handleLogin}
-    >
-      {({ values, handleChange, setFieldTouched, errors, isValid, touched, handleSubmit }) => (
-        <View style={styles.container}>
-          <Text style={styles.logo}>Login</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="Email"
-            placeholderTextColor="#ffffff"
-            value={values.email}
-            onChangeText={handleChange('email')}
-            onBlur={() => setFieldTouched('email')}
-          />
-          {touched.email && errors.email && <Text style={styles.errorText}>{errors.email}</Text>}
+    <ThemeProvider theme={theme}>
+      <Formik
+        initialValues={{
+          email: '',
+          Password: '',
+        }}
+        validationSchema={LoginSchema}
+        onSubmit={handleLogin}
+      >
+        {({ values, handleChange, setFieldTouched, errors, isValid, touched, handleSubmit }) => (
+          <View style={styles2.container2}>
+            <Text style={styles2.logo2}>Login</Text>
 
-          <TextInput
-            style={styles.input}
-            placeholder="Password"
-            placeholderTextColor="#ffffff"
-            secureTextEntry={secureTextEntry}
-            value={values.Password}
-            onChangeText={handleChange('Password')}
-            onBlur={() => setFieldTouched('Password')}
-          />
-          {touched.Password && errors.Password && <Text style={styles.errorText}>{errors.Password}</Text>}
+            <Card containerStyle={styles2.card2}>
+              <Input
+                placeholder="Email"
+                leftIcon={{ type: 'font-awesome', name: 'envelope', color: theme.colors.secondary }}
+                placeholderTextColor={theme.colors.secondary}
+                inputStyle={{ color: theme.colors.secondary }}
+                value={values.email}
+                onChangeText={handleChange('email')}
+                onBlur={() => setFieldTouched('email')}
+                errorMessage={touched.email && errors.email ? errors.email : undefined}
+              />
 
-          <TouchableOpacity onPress={toggleSecureEntry}>
-            <Text style={{ textAlign: 'center', color: 'white', marginBottom: 20 }}>
-              {secureTextEntry ? 'Show Password' : 'Hide Password'}
-            </Text>
-          </TouchableOpacity>
+              <Input
+                placeholder="Password"
+                leftIcon={{ type: 'font-awesome', name: 'lock', color: theme.colors.secondary }}
+                placeholderTextColor={theme.colors.secondary}
+                inputStyle={{ color: theme.colors.secondary }}
+                secureTextEntry={secureTextEntry}
+                rightIcon={
+                  <Icon
+                    type="font-awesome"
+                    name={secureTextEntry ? 'eye-slash' : 'eye'}
+                    color={theme.colors.secondary}
+                    onPress={toggleSecureEntry}
+                  />
+                }
+                value={values.Password}
+                onChangeText={handleChange('Password')}
+                onBlur={() => setFieldTouched('Password')}
+                errorMessage={touched.Password && errors.Password ? errors.Password : undefined}
+              />
 
-          <TouchableOpacity
-            disabled={!isValid}
-            style={[styles.button, { backgroundColor: isValid ? '#fb5b5a' : 'grey' }]}
-            onPress={(handleSubmit as any)}
-          >
-            <Text style={styles.buttonText}>Login</Text>
-          </TouchableOpacity>
+              <Button
+                title="Login"
+                disabled={!isValid}
+                buttonStyle={styles2.loginButton2}
+                containerStyle={{ marginTop: 20 }}
+                onPress={(handleSubmit as any)}
+              />
 
-          <Text onPress={() => navigation.navigate('ForgetPassword')} style={styles.forgotPassword}>
-            Forgot Password?
-          </Text>
+              <Text onPress={() => navigation.navigate('ForgetPassword')} style={styles2.forgotPassword2}>
+                Forgot Password?
+              </Text>
+            </Card>
 
-          <View style={styles.signupContainer}>
-            <Text style={styles.signupText}>Don't have an account?</Text>
-            <TouchableOpacity onPress={() => navigation.navigate('Signup')}>
-              <Text style={styles.signupButton}>Sign Up</Text>
-            </TouchableOpacity>
+            <View style={styles2.signupContainer2}>
+              <Text style={styles2.signupText2}>Don't have an account?</Text>
+              <Button
+                type="clear"
+                title="Sign Up"
+                titleStyle={{ color: theme.colors.primary }}
+                onPress={() => navigation.navigate('Signup')}
+              />
+            </View>
           </View>
-        </View>
-      )}
-    </Formik>
+        )}
+      </Formik>
+    </ThemeProvider>
   );
 };
+
 
 export default Login;

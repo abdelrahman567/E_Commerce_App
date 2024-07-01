@@ -1,9 +1,20 @@
 import React from 'react';
-import { View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
+import { View, Alert } from 'react-native';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import styles from './styles';
+import { Input, Button, Text, Card, ThemeProvider } from 'react-native-elements';
+import {styles2} from './styles';
+
+const theme = {
+  Button: {
+    raised: true,
+  },
+  colors: {
+    primary: '#fb5b5a',
+    secondary: '#ffffff',
+  },
+};
 
 const ForgetSchema = Yup.object().shape({
   email: Yup.string().email('Invalid email').required('Enter your email.'),
@@ -30,41 +41,39 @@ const ForgetPassword = () => {
   };
 
   return (
-    <Formik
-      initialValues={{ email: '' }}
-      validationSchema={ForgetSchema}
-      onSubmit={handleSubmit}
-    >
-      {({ values, handleChange, handleSubmit, setFieldTouched, errors, isValid, touched }) => (
-        <View style={styles.container}>
-          <Text style={styles.logo}>Forget Password</Text>
-          <View style={styles.inputView}>
-            <TextInput
-              style={styles.inputText}
-              placeholder="Email"
-              placeholderTextColor="#ffffff"
-              value={values.email}
-              onChangeText={handleChange('email')}
-              onBlur={() => setFieldTouched('email')}
-            />
-            {touched.email && errors.email && (
-              <Text style={styles.errorText}>{errors.email}</Text>
-            )}
-          </View>
+    <ThemeProvider theme={theme}>
+      <Formik
+        initialValues={{ email: '' }}
+        validationSchema={ForgetSchema}
+        onSubmit={handleSubmit}
+      >
+        {({ values, handleChange, handleSubmit, setFieldTouched, errors, isValid, touched }) => (
+          <View style={styles2.container2}>
+            <Text style={styles2.logo2}>Forget Password</Text>
 
-          <TouchableOpacity
-            disabled={!isValid}
-            style={[
-              styles.signUpBtn,
-              { backgroundColor: isValid ? '#fb5b5a' : 'grey' },
-            ]}
-            onPress={handleSubmit}
-          >
-            <Text style={styles.signUpText}>Submit</Text>
-          </TouchableOpacity>
-        </View>
-      )}
-    </Formik>
+            <Card containerStyle={styles2.card2}>
+              <Input
+                placeholder="Email"
+                leftIcon={{ type: 'font-awesome', name: 'envelope', color: theme.colors.secondary }}
+                placeholderTextColor={theme.colors.secondary}
+                inputStyle={{ color: theme.colors.secondary }}
+                value={values.email}
+                onChangeText={handleChange('email')}
+                onBlur={() => setFieldTouched('email')}
+                errorMessage={touched.email && errors.email ? errors.email : undefined}
+              />
+              <Button
+                title="Submit"
+                disabled={!isValid}
+                buttonStyle={styles2.loginButton2}
+                containerStyle={{ marginTop: 20 }}
+                onPress={handleSubmit}
+              />
+            </Card>
+          </View>
+        )}
+      </Formik>
+    </ThemeProvider>
   );
 };
 
